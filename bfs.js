@@ -130,9 +130,9 @@ var j=1
 var array2D = [[]];
 var line2D=[[]];
 var current;
-function setup() {
-  
-  var cnv = createCanvas(600, 600);
+
+function setup() { 
+  var cnv = createCanvas(900, 600);
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
@@ -140,24 +140,21 @@ function setup() {
   strokeWeight(0.5);
 
   stroke(0,0,0);
-  
 }
+
 function draw() {
   if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0){
     if(mouseIsPressed){
       background(220);
       for(var c=1;c<i;c++){
         ellipse(array2D[c][0],array2D[c][1], 30, 30);
-        text(c,array2D[c][0],array2D[c][1]);
-       
+        text(c,array2D[c][0],array2D[c][1]);  
       }
       for(var c=1;c<j;c++){
         line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
       }
       line(fx, fy, mouseX, mouseY);
     }
-  
-
   }
 
 }

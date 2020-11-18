@@ -53,7 +53,7 @@ class Graph {
     var get_keys = this.AdjList.keys();
 
     for (var i of get_keys) 
-  {
+    {
       var get_values = this.AdjList.get(i);
       var conc = "";
 
@@ -65,7 +65,6 @@ class Graph {
   }  
   bfs(startingNode)
   {
-
       // create a visited object
       var visited = {};
   
@@ -89,7 +88,6 @@ class Graph {
           // queue if it is not processed yet
           for (var i in get_List) {
               var neigh = get_List[i];
-  
               if (!visited[neigh]) {
                   visited[neigh] = true;
                   q.enqueue(neigh);
@@ -110,7 +108,6 @@ class Graph {
   DFSUtil(vert, visited)
   {
       visited[vert] = true;
-      console.log(vert);
       dfsOrder=dfsOrder+vert.toString()+" -> ";
          
       var get_neighbours = this.AdjList.get(vert);
@@ -165,15 +162,14 @@ if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0){
     fx=mouseX;
     fy=mouseY;
     var flag=true;
-    for(var c=1;c<=i;c++){
-      if (array2D[c]!=undefined){
+    for(var c=1;c<i;c++){
+
         if(overCircle(array2D[c][0],array2D[c][1],fx,fy, 15)) {
           // line(fx, fy, mouseX, mouseY);
           current=c;
           console.log(array2D)
           flag=false;
-        }
-      }
+        }    
     }
     if(flag){
       ellipse(mouseX,mouseY, 30, 30);
@@ -221,6 +217,7 @@ function overCircle(x1, y1,x2,y2 ,r) {
     return false;
   }
 }
+
 function input(){
   bfsOrder="";
   var root=parseInt(document.getElementById('rootN').value);
@@ -229,6 +226,7 @@ function input(){
   document.getElementById('output').innerHTML=bfsOrder;
   console.log(bfsOrder);
 }
+
 function input2(){
   dfsOrder="";
   var root=parseInt(document.getElementById('rootN').value);

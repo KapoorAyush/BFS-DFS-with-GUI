@@ -134,7 +134,7 @@ var current;
 function setup() { 
   var cnv = createCanvas(900, 600);
   var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
+  var y = (windowHeight - height)-40 ;
   cnv.position(x, y);
   background(220);
   strokeWeight(0.5);

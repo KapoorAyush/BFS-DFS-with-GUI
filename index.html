@@ -11,9 +11,9 @@
 </head>
 <body>
     <div style="text-align:center" class="mt-3">    
-        <form action="#" >
+        <form >
         <label for="rootN">Enter Root node: </label>
-        <input type="text" id="rootN" style="width:100px;">
+        <input type="text" id="rootN" style="width:100px;" onkeypress="return event.keyCode != 13">
         <button type="button" onclick="input()" class="btn btn-dark">BFS</button>    
         <button type="button" onclick="input2()" class="btn btn-dark"> DFS </button>
         </form>

@@ -79,6 +79,7 @@ class Graph {
       while (!q.isEmpty()) {
           // get the element from the queue
           var getQueueElement = q.dequeue();
+          bfsv.push(getQueueElement);
           bfsOrder=bfsOrder+getQueueElement.toString()+" -> ";
           
           // get the adjacent list for current vertex
@@ -108,6 +109,7 @@ class Graph {
   DFSUtil(vert, visited)
   {
       visited[vert] = true;
+      dfsv.push(vert);
       dfsOrder=dfsOrder+vert.toString()+" -> ";
          
       var get_neighbours = this.AdjList.get(vert);
@@ -120,6 +122,7 @@ class Graph {
   }
 }
 var bfsOrder,dfsOrder;
+var bfsv,dfsv;
 var g = new Graph();
 var fx,fy;
 var i=1
@@ -147,7 +150,9 @@ function draw() {
         line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
       }
       for(var c=1;c<i;c++){
+        fill(255);
         ellipse(array2D[c][0],array2D[c][1], 30, 30);
+        fill(0);
         text(c,array2D[c][0],array2D[c][1]);  
       }
 
@@ -173,7 +178,9 @@ if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0){
         }    
     }
     if(flag){
+      fill(255);
       ellipse(mouseX,mouseY, 30, 30);
+      fill(0);
       text(i,mouseX,mouseY);
       g.addVertex(i);
       array2D[i] = [];
@@ -202,7 +209,9 @@ function mouseReleased() {
       line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
     }
     for(var c=1;c<i;c++){
+        fill(255);
         ellipse(array2D[c][0],array2D[c][1], 30, 30);
+        fill(0);
         text(c,array2D[c][0],array2D[c][1]);
     }
 
@@ -220,25 +229,81 @@ function overCircle(x1, y1,x2,y2 ,r) {
   }
 }
 
-function input(){
+async function input(){
+  bfsv=[];
   bfsOrder="";
   var root=parseInt(document.getElementById('rootN').value);
   g.bfs(root);
   bfsOrder="BFS Traversal Order : "+bfsOrder
   document.getElementById('output').innerHTML=bfsOrder;
+  console.log(bfsv);
   console.log(bfsOrder);
+  var a=1;
+
+  for(var a=0;a<i-1;a++){
+    background(220);
+    for(var c=1;c<j;c++){
+      line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
+    }
+    for(var c=1;c<i;c++){
+        if(c==bfsv[a])
+        {
+          fill(150,200,255);
+          ellipse(array2D[c][0],array2D[c][1], 30, 30);
+        }
+        else
+        {
+          fill(255);
+          ellipse(array2D[c][0],array2D[c][1], 30, 30);
+        }
+        fill(0);
+        text(c,array2D[c][0],array2D[c][1]);
+    }
+    await sleep(1000);
+  }
+
+
 }
 
-function input2(){
+async function input2(){
+  dfsv=[]
   dfsOrder="";
   var root=parseInt(document.getElementById('rootN').value);
   g.dfs(root);
   dfsOrder="DFS Traversal Order : "+dfsOrder
   document.getElementById('output').innerHTML=dfsOrder;
   console.log(dfsOrder);
+
+  for(var a=0;a<i-1;a++){
+    background(220);
+    for(var c=1;c<j;c++){
+      line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
+    }
+    for(var c=1;c<i;c++){
+        if(c==dfsv[a])
+        {
+          fill(150,200,255);
+          ellipse(array2D[c][0],array2D[c][1], 30, 30);
+          }
+        else
+        {
+          fill(255);
+          ellipse(array2D[c][0],array2D[c][1], 30, 30);
+        }
+        fill(0)
+        text(c,array2D[c][0],array2D[c][1]);
+    
+    }
+    await sleep(1000);
+  }
+
+
+
 }
 
 
-
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 

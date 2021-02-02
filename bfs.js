@@ -171,7 +171,6 @@ if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0){
     for(var c=1;c<i;c++){
 
         if(overCircle(array2D[c][0],array2D[c][1],fx,fy, 15)) {
-          // line(fx, fy, mouseX, mouseY);
           current=c;
           console.log(array2D)
           flag=false;
@@ -194,7 +193,6 @@ if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0){
 
 function mouseReleased() {
   if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0){
-
     background(220);
     for(var c=1;c<i;c++){
       if (overCircle(array2D[c][0],array2D[c][1],mouseX,mouseY, 15) && c!=current) {
@@ -220,7 +218,6 @@ function mouseReleased() {
 
 }
 
-
 function overCircle(x1, y1,x2,y2 ,r) {
   if (dist(x1, y1, x2, y2) < r) {
     return true;
@@ -229,7 +226,7 @@ function overCircle(x1, y1,x2,y2 ,r) {
   }
 }
 
-async function input(){
+function input(){
   bfsv=[];
   bfsOrder="";
   var root=parseInt(document.getElementById('rootN').value);
@@ -238,34 +235,10 @@ async function input(){
   document.getElementById('output').innerHTML=bfsOrder;
   console.log(bfsv);
   console.log(bfsOrder);
-  var a=1;
-
-  for(var a=0;a<i-1;a++){
-    background(220);
-    for(var c=1;c<j;c++){
-      line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
-    }
-    for(var c=1;c<i;c++){
-        if(c==bfsv[a])
-        {
-          fill(150,200,255);
-          ellipse(array2D[c][0],array2D[c][1], 30, 30);
-        }
-        else
-        {
-          fill(255);
-          ellipse(array2D[c][0],array2D[c][1], 30, 30);
-        }
-        fill(0);
-        text(c,array2D[c][0],array2D[c][1]);
-    }
-    await sleep(1000);
-  }
-
-
+  simulation(bfsv);
 }
 
-async function input2(){
+function input2(){
   dfsv=[]
   dfsOrder="";
   var root=parseInt(document.getElementById('rootN').value);
@@ -273,18 +246,30 @@ async function input2(){
   dfsOrder="DFS Traversal Order : "+dfsOrder
   document.getElementById('output').innerHTML=dfsOrder;
   console.log(dfsOrder);
+  simulation(dfsv);
+}
 
+function clearg(){
+  background(220);
+  array2D=[[]];
+  line2D=[[]];
+  i=1;
+  j=1;
+  document.getElementById('output').innerHTML="<h3>Draw Graph below</h3>";
+}
+
+async function simulation(fsv){
   for(var a=0;a<i-1;a++){
     background(220);
     for(var c=1;c<j;c++){
       line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
     }
     for(var c=1;c<i;c++){
-        if(c==dfsv[a])
+        if(check(fsv,a,c))
         {
           fill(150,200,255);
           ellipse(array2D[c][0],array2D[c][1], 30, 30);
-          }
+        }
         else
         {
           fill(255);
@@ -296,12 +281,28 @@ async function input2(){
     }
     await sleep(1000);
   }
+  await sleep(500);
 
-
-
+  //redrawing for the final time (simulation ended)
+  background(220);
+  for(var c=1;c<j;c++){
+    line(array2D[line2D[c][0]][0],array2D[line2D[c][0]][1],array2D[line2D[c][1]][0],array2D[line2D[c][1]][1])
+  }
+  for(var c=1;c<i;c++){
+      fill(255);
+      ellipse(array2D[c][0],array2D[c][1], 30, 30);
+      fill(0)
+      text(c,array2D[c][0],array2D[c][1]);
+  }
 }
 
 
+function check(fsv,a,c){
+  for(var b=0;b<=a;b++){
+    if(fsv[b]==c)
+      return true
+  }
+}
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }

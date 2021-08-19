@@ -132,7 +132,7 @@ var line2D=[[]];
 var current;
 
 function setup() { 
-  var cnv = createCanvas(900, 600);
+  var cnv = createCanvas(900, 500);
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height)-40 ;
   cnv.position(x, y);
